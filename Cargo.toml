@@ -1,0 +1,6 @@
+[package]
+name = "rc6"
+version = "0.1.0"
+authors = ["Taylor Foxhall <tfoxhal1@binghamton.edu>"]
+
+[dependencies]
