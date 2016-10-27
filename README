@@ -1,0 +1,26 @@
+Taylor Foxhall
+tfoxhal1@binghamton.edu
+
+This implementation of RC6 was written in the Rust programming
+language with permission from the professor. It was not tested on
+bingsuns as that machine doesn't have a rust compiler.
+
+The code has been tested and runs with the Rust compiler version 1.11
+and above. If you install the rust compiler and cargo, its project
+management system it can be run with
+
+cargo run [input file] [output file]
+
+Or, it can be compiled with rustc and then run as a binary
+
+rustc src/main.rs
+./main [input file] [output file]
+
+The source code also includes tests for the first two tests provided
+in the RC6 paper. They can be run with
+
+cargo test
+
+If you're having difficulty running this or don't wish to install the
+rust compiler on your system send me an email and I will demonstrate
+it on my system as soon as possible.

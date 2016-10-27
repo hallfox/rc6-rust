@@ -8,9 +8,10 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::error::Error;
 
+/// Represents the registers used for RC6-32/20/b encryption
 #[derive(Copy, Clone, PartialEq, Eq)]
 pub struct Rc6 {
-    /// Represents the registers used for RC6-32/20/b encryption
+    /// Each u32 nicely represents a register
     reg_a: u32,
     reg_b: u32,
     reg_c: u32,
@@ -21,13 +22,16 @@ impl Rc6 {
     pub fn new(a: u32, b: u32, c: u32, d: u32) -> Self {
         Rc6 { reg_a: a, reg_b: b, reg_c: c, reg_d: d }
     }
-    
+
+    /// Generate the key schedule based off of the userkey
     fn key_schedule(key: &Vec<u32>) -> Box<[u32]> {
         let r = 20;
         let sched_size = 2*r+4;
+        // Constant from paper
         let qw = 0x9E37_79B9u32;
         let c = key.len();
         let mut sched = vec![0u32; sched_size].into_boxed_slice();
+        // Constant from paper
         sched[0] = 0xB7E1_5163u32;
 
         for i in 1..sched_size {
@@ -57,6 +61,8 @@ impl Rc6 {
         sched
     }
 
+    /// Uses the current registers to run RC6 encryption using key,
+    /// returns a new set of registers
     pub fn encrypt(&self, key: &Vec<u32>) -> Self {
         let r = 20;
         let mut e_rc6 = *self; // Copy
@@ -83,6 +89,8 @@ impl Rc6 {
         e_rc6
     }
 
+    /// Uses the current set of registers to run RC6 decryption using
+    /// key, returns a new set of registers
     pub fn decrypt(&self, key: &Vec<u32>) -> Self {
         let r = 20;
         let mut d_rc6 = *self;
@@ -110,6 +118,7 @@ impl Rc6 {
         d_rc6
     }
 
+    /// Underlying rounding function, f(x) = x*(2x + 1) mod 2^32
     fn round(reg: u32) -> u32 {
         let rot = 5; // lg(32)
         let t = (reg << 1) + 1;
