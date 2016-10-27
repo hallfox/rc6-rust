@@ -1,5 +1,4 @@
 Taylor Foxhall
-tfoxhal1@binghamton.edu
 
 This implementation of RC6 was written in the Rust programming
 language with permission from the professor. It was not tested on
@@ -20,7 +19,3 @@ The source code also includes tests for the first two tests provided
 in the RC6 paper. They can be run with
 
 cargo test
-
-If you're having difficulty running this or don't wish to install the
-rust compiler on your system send me an email and I will demonstrate
-it on my system as soon as possible.
