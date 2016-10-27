@@ -129,7 +129,7 @@ impl Rc6 {
 
 impl FromStr for Rc6 {
     type Err = ParseIntError;
-    
+
     fn from_str(plaintext: &str) -> Result<Self, <Self as FromStr>::Err> {
         let bytes: Vec<_> = plaintext.split_whitespace()
             .map(|s| u8::from_str_radix(s, 16))
@@ -170,7 +170,7 @@ fn main() {
     let mut args = env::args().skip(1);
     let input_file = args.next().unwrap();
     let output_file = args.next().unwrap();
-    
+
     let mut input = match File::open(&input_file) {
         Ok(f) => f,
         Err(why) => panic!("Could not open {}: {}", input_file, why.description())
@@ -205,7 +205,7 @@ fn encrypt(mut data: str::Lines) -> String {
         .expect("Couldn't read key")
         .trim_left_matches("userkey: ");
     let key = read_key(keytext).expect("Couldn't parse key");
-    
+
     format!("ciphertext: {}\n", plaintext.encrypt(&key))
 }
 
@@ -219,7 +219,7 @@ fn decrypt(mut data: str::Lines) -> String {
         .expect("Couldn't read key")
         .trim_left_matches("userkey: ");
     let key = read_key(keytext).expect("Couldn't parse key");
-    
+
     format!("plaintext: {}\n", ciphertext.decrypt(&key))
 
 }
